@@ -6,6 +6,10 @@
   font-family: 'Open-Sans', sans-serif;
 }
 
+body, header, footer {
+  overflow-x: hidden;
+}
+
 h1, h2, h3, h4, .bold {
   font-family: 'Poppins', sans-serif;
 }
@@ -64,4 +68,10 @@ h1, h2, h3, h4, .bold {
   box-sizing: border-box;
   padding: 2px;
 }
+
+.nowrap {
+  white-space: nowrap;
+}
+
+
 

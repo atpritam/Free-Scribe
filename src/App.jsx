@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from 'react';
+import React, {Suspense,useState, useRef, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import HomePage from './components/HomePage.jsx';
 import FileDisplay from './components/FileDisplay.jsx';
-import Information from './components/Information.jsx';
 import Transcribing from './components/Transcribing.jsx';
 import { MessageTypes } from './utils/presets.js';
+import Footer from './components/Footer.jsx';
+const Information = React.lazy(() => import('./components/Information.jsx'));
 
 function App() {
   const [file, setFile] = useState(null);
@@ -14,6 +15,16 @@ function App() {
   const [finished, setFinished] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [text, setText] = useState(null);
+
+  const handleNew = () => {
+    setOutput(null);
+    setLoading(false);
+    setFinished(false);
+    setDownloading(false);
+    setText(null);
+    setFile(null);
+    setAudioStream(null);
+  }
 
   const handleAudioReset = () => {
     setFile(null);
@@ -32,6 +43,13 @@ function App() {
     const audio = decoded.getChannelData(0);
     return audio;
   };
+
+  useEffect(() => {
+    if (audioStream) {
+      handleFormSubmission();
+    }
+  }, [audioStream]);
+
 
   const handleFormSubmission = async () => {
     if (!file && !audioStream) {
@@ -69,7 +87,7 @@ function App() {
         case 'INFERENCE_DONE':
           setFinished(true);
           break;
-        default:
+        default: 
           break;
       }
     };
@@ -89,12 +107,14 @@ function App() {
   return (
     <div className='flex flex-col max-w-[1000px] mx-auto w-full'>
       <section className='min-h-screen flex flex-col'>
-        <Header isAudioAvailable={isAudioAvailable} />
+        <Header isAudioAvailable={isAudioAvailable} handleNew = {handleNew}/>
         {output ? (
-          <Information text={text} />
-        ) : loading ? (
+          <Suspense fallback={<div><p><i className="fa-solid fa-spinner animate-spin"></i></p></div>}>
+            <Information text={text} />
+          </Suspense>
+        ) : loading? (
           <Transcribing />
-        ) : isAudioAvailable ? (
+        ) : (isAudioAvailable && file) ? (
           <FileDisplay
             handleAudioReset={handleAudioReset}
             file={file}
@@ -105,7 +125,7 @@ function App() {
           <HomePage setFile={setFile} setAudioStream={setAudioStream} />
         )}
       </section>
-      <footer></footer>
+      <Footer />
     </div>
   );
 }
