@@ -11,9 +11,6 @@ function Translation(props) {
 
     const worker = useRef(null)
     
-    
-    
-
     useEffect(() => {
         if (!worker.current) {
             worker.current = new Worker(new URL('../utils/translate.worker.js', import.meta.url), {
@@ -85,7 +82,9 @@ function Translation(props) {
             <select value={language.current} className='flex-1 outline-none w-full focus:outline-none bg-white duration-200 p-2  rounded'
                 onChange={(e) => {
                     setToLanguage(e.target.value)
-                    language.current = e.target.value}}>
+                    language.current = e.target.value
+                    translatedText.current = ''
+                    }}>
                 <option value={'Select language'}>Select language</option>
                 {Object.entries(LANGUAGES).map(([key, value]) => {
                     return (
