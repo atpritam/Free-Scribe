@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import './App.css';
 import Header from './components/Header.jsx';
 import HomePage from './components/HomePage.jsx';
 import FileDisplay from './components/FileDisplay.jsx';
