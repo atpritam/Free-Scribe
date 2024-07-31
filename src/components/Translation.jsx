@@ -31,10 +31,12 @@ function Translation(props) {
                 case 'update':
                     setLoading(false)
                     setTranslation(e.data.output)
+                    translatedText.current = e.data.output
                     break;
                 case 'complete':
-                    setTranslating(false)
-                    setTranslation(e.data.output.map((x) => x.translation_text).join(' '))
+                    setLoading(false)
+                    setTranslation(e.data.output.map(x => x.translation_text).join(' '))
+                    translatedText.current = e.data.output.map(x => x.translation_text).join(' ')
                     console.log("DONE")
                     break;
             }
@@ -47,7 +49,7 @@ function Translation(props) {
 
     const generateTranslation = async () => {
         if(translating || toLanguage === 'Select language') return
-        translatedText.current = ''
+        translatedText.current = null
         setTranslating(true)
         setLoading(true)
 
@@ -61,22 +63,10 @@ function Translation(props) {
         setLoading(false)
     }
 
-    useEffect(() => {
-        if (translation) {
-            translatedText.current = translation
-        }
-    }, [translation])
+            
 
   return (
     <>
-    {
-        (loading) && (
-            <p>Loading...</p>
-        )
-    }
-    {(translatedText.current && !translating && !loading) && (
-        <p>{translatedText.current}</p>
-    )}
     {(!translating && language.current) && (<div className='flex flex-col gap-1 mb-4'>
         <p className='text-xs sm:text-sm font-medium text-slate-500 mr-auto'>To language</p>
         <div className='flex items-stretch gap-2 sm:gap-4' >
@@ -96,6 +86,16 @@ function Translation(props) {
             <button onClick={generateTranslation} className='specialBtn px-3 py-2 rounded-lg text-blue-400 hover:text-blue-600 duration-200'>Translate</button>
         </div>
     </div>)}
+    {
+        (loading) && (
+            <p><i className="fa-solid fa-spinner animate-spin"></i></p>
+        )
+    }
+    {(translatedText.current) && (
+        <div className='fixed-height'>
+        <p>{translatedText.current}</p>
+        </div>
+    )}
     </>
   )
 }

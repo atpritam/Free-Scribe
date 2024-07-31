@@ -46,3 +46,22 @@ h1, h2, h3, h4, .bold {
   90%{width: 76%;}
   100%{width: 100%;}
 }
+
+.fixed-height-container {
+  height: 45vh;
+  overflow-y: fixed;
+  width: 100%;
+  min-width: auto;
+  box-sizing: border-box;
+  padding: 26px;
+}
+
+.fixed-height {
+  height: 80%;
+  overflow-y: auto;
+  width: 100%;
+  min-width: auto;
+  box-sizing: border-box;
+  padding: 2px;
+}
+
