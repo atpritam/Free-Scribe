@@ -59,19 +59,15 @@ function App() {
       switch (e.data.type) {
         case 'DOWNLOADING':
           setDownloading(true);
-          console.log('DOWNLOADING');
           break;
         case 'LOADING':
           setLoading(true);
-          console.log('LOADING');
           break;
         case 'RESULT':
           setOutput(e.data.results);
-          console.log(e.data.results);
           break;
         case 'INFERENCE_DONE':
           setFinished(true);
-          console.log("DONE");
           break;
         default:
           break;

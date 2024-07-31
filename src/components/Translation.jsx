@@ -8,6 +8,7 @@ function Translation(props) {
     const [toLanguage, setToLanguage] = useState('Select language')
     const [translating, setTranslating] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [prevLanguage, setPrevLanguage] = useState('Select language')
 
     const worker = useRef(null)
     
@@ -22,11 +23,9 @@ function Translation(props) {
             switch (e.data.status) {
                 case 'initiate':
                     setLoading(true)
-                    console.log('DOWNLOADING')
                     break;
                 case 'progress':
                     setLoading(true)
-                    console.log('LOADING')
                     break;
                 case 'update':
                     setLoading(false)
@@ -37,7 +36,6 @@ function Translation(props) {
                     setLoading(false)
                     setTranslation(e.data.output.map(x => x.translation_text).join(' '))
                     translatedText.current = e.data.output.map(x => x.translation_text).join(' ')
-                    console.log("DONE")
                     break;
             }
         }
@@ -48,7 +46,8 @@ function Translation(props) {
     })
 
     const generateTranslation = async () => {
-        if(translating || toLanguage === 'Select language') return
+        if(translating || toLanguage === 'Select language') return  
+        if(prevLanguage === toLanguage) return
         translatedText.current = null
         setTranslating(true)
         setLoading(true)
@@ -61,6 +60,7 @@ function Translation(props) {
 
         setTranslating(false)
         setLoading(false)
+        setPrevLanguage(toLanguage)
     }
 
             

@@ -15,7 +15,6 @@ function HomePage(props) {
 
     const startRecording = async () => {
         let tempStream
-        console.log('Start recording')
     
         try {
             const streamData = await navigator.mediaDevices.getUserMedia({
@@ -46,7 +45,6 @@ function HomePage(props) {
     
     const stopRecording = async () => {
         setRecordingStatus('inactive')
-        console.log('Stop recording')
     
         mediaRecorder.current.stop()
         mediaRecorder.current.onstop = () => {
