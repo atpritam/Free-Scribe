@@ -12,6 +12,8 @@ function App() {
   const [audioStream, setAudioStream] = useState(null);
   const [output, setOutput] = useState(false);
   const [loading, setLoading] = useState(false); 
+  const [downloading, setDownloading] = useState(false);
+  const [finished, setFinished] = useState(false);
   const [text, setText] = useState(null);
 
   const handleNew = () => {
@@ -20,6 +22,8 @@ function App() {
     setText(null);
     setFile(null);
     setAudioStream(null);
+    setDownloading(false);
+    setFinished(false);
   }
 
   const handleAudioReset = () => {
