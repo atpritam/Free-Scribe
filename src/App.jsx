@@ -11,16 +11,12 @@ function App() {
   const [file, setFile] = useState(null);
   const [audioStream, setAudioStream] = useState(null);
   const [output, setOutput] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [downloading, setDownloading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [text, setText] = useState(null);
 
   const handleNew = () => {
     setOutput(null);
     setLoading(false);
-    setFinished(false);
-    setDownloading(false);
     setText(null);
     setFile(null);
     setAudioStream(null);
@@ -107,7 +103,7 @@ function App() {
   return (
     <div className='flex flex-col max-w-[1000px] mx-auto w-full'>
       <section className='min-h-screen flex flex-col'>
-        <Header isAudioAvailable={isAudioAvailable} handleNew = {handleNew}/>
+        <Header handleNew = {handleNew}/>
         {output ? (
           <Suspense fallback={<div><p><i className="fa-solid fa-spinner animate-spin"></i></p></div>}>
             <Information text={text} />

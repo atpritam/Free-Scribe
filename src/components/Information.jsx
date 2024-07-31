@@ -4,10 +4,13 @@ import Translation from './Translation';
 
 function Information(props) {
     const [tab, setTab] = useState('Transcription');
+    const [downloading, setDownloading] = useState(false);
+
     const { text } = props;
 
     const translatedText = useRef('');
     const language = useRef('Select language');
+
 
     const handleTabChange = (e) => {
         setTab(e.target.innerText);
@@ -15,18 +18,26 @@ function Information(props) {
 
     const handleCopy = () => {
         const textToCopy = tab === 'Translation' ? translatedText.current : text;
+        if (!textToCopy) {
+            return;
+        }
         navigator.clipboard.writeText(textToCopy);
     };
 
     const handleDownload = () => {
-        const element = document.createElement('a');
         const textToDownload = tab === 'Translation' ? translatedText.current : text;
+        if (downloading || !textToDownload) {
+            return;
+        }
+        setDownloading(true);
+        const element = document.createElement('a');
         const file = new Blob([textToDownload], { type: 'text/plain' });
         element.href = URL.createObjectURL(file);
         element.download = tab === 'Translation' ? `Translation.txt` : `Transcription.txt`;
         document.body.appendChild(element);
         element.click();
         document.body.removeChild(element);
+        setDownloading(false);
     };
 
     return (

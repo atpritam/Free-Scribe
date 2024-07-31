@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Header = (props) => {
-    const { isAudioAvailable, handleNew } = props;
+    const { handleNew } = props;
 
     return (
         <header className='flex items-center justify-between gap-4 p-4'>
@@ -21,7 +21,7 @@ const Header = (props) => {
                 </a>
                 <a 
                     onClick={handleNew} 
-                    className={`specialBtn flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 cursor-pointer transition-opacity duration-300 ${isAudioAvailable ? 'opacity-100' : 'opacity-0'} ${isAudioAvailable ? 'visible' : 'invisible'}`}
+                    className={`specialBtn flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 cursor-pointer transition-opacity duration-300`}
                 >
                     <p>New</p>
                     <i className="fa-solid fa-plus"></i>
