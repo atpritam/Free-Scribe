@@ -47,6 +47,7 @@ function Translation(props) {
 
     const generateTranslation = async () => {
         if(translating || toLanguage === 'Select language') return
+        translatedText.current = ''
         setTranslating(true)
         setLoading(true)
 
@@ -83,7 +84,6 @@ function Translation(props) {
                 onChange={(e) => {
                     setToLanguage(e.target.value)
                     language.current = e.target.value
-                    translatedText.current = ''
                     }}>
                 <option value={'Select language'}>Select language</option>
                 {Object.entries(LANGUAGES).map(([key, value]) => {
