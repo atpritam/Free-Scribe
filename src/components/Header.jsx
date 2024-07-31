@@ -10,20 +10,18 @@ const Header = (props) => {
                     Free<span className='text-blue-400 font-bold'>Scribe</span>
                 </h1>
             </a>
-            <div className='flex items-center'>
-                {/* Adjust margin based on isAudioAvailable */}
+            <div className='flex items-center gap-4'>
                 <a 
                     href="https://buymeacoffee.com/pritamchk" 
                     target='_blank' 
-                    className={`text-slate-600 cursor-pointer transition-all duration-300`} 
-                    style={{marginLeft: isAudioAvailable ? '' : '11rem'}}
+                    className='text-slate-600 cursor-pointer' 
                     rel="noreferrer"
                 >
                     Donate
                 </a>
                 <a 
                     onClick={handleNew} 
-                    className={`specialBtn flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 cursor-pointer transition-opacity duration-300 ${isAudioAvailable ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+                    className={`specialBtn flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 cursor-pointer transition-opacity duration-300 ${isAudioAvailable ? 'opacity-100' : 'opacity-0'} ${isAudioAvailable ? 'visible' : 'invisible'}`}
                 >
                     <p>New</p>
                     <i className="fa-solid fa-plus"></i>
