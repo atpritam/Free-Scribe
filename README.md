@@ -1,5 +1,7 @@
 # Free-Scribe
 
+Deployed: [Free-Scribe](https://itssodope01.github.io/Free-Scribe/)
+
 ## Audio Transcription and Translation App
 
 ## Table of Contents
