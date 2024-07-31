@@ -24,7 +24,7 @@ Free-Scribe is a powerful React-based web application that leverages machine lea
 - **Direct Audio Recording**: Record audio directly within the app.
 - **Audio File Upload**: Upload audio files for transcription.
 - **Transcription**: Transcribe audio to text using advanced ML models.
-- **Translation**: Translate transcribed text to multiple languages using state-of-the-art ML models.
+- **Translation**: Translate transcribed text to multiple languages using ML models.
 - **User-friendly Interface**: Easily copy and download transcriptions and translations.
 - **Real-time Processing**: Experience fast and efficient audio processing.
 - **Multi-language Support**: Transcribe and translate content in various languages.
