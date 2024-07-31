@@ -78,7 +78,6 @@ function HomePage(props) {
                 
                 <h1 className='font-semibold text-5xl sm:text-6xl md:text-7xl'>Free<span className='text-blue-400 bold'>Scribe</span></h1>
                 <h3 className='font-medium md:text-lg'>Record <span className='text-blue-400'>&rarr;</span> Transcribe <span className='text-blue-400'>&rarr;</span> Translate</h3>
-                {/* <p className='text-sm sm:text-base md:text-lg'>FreeScribe is a free speech-to-text transcription and translation tool that allows you to convert spoken words into written text in real-time.</p> */}
                 <button className='flex specialBtn px-4 py-2 rounded-xl items-center text-base justify-between gap-4 mx-auto w-72 max-w-full my-4'>
                     <p 
                     className='text-blue-400'
