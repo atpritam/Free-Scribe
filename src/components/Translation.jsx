@@ -6,6 +6,7 @@ import  MOBILE  from '../utils/mobile.presets';
 
 function Translation(props) {
     const { text, translatedText, language } = props;
+    const [translation, setTranslation] = useState('');
     const [toLanguage, setToLanguage] = useState('Select language');
     const [translating, setTranslating] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -31,10 +32,12 @@ function Translation(props) {
                     break;
                 case 'update':
                     setLoading(false)
+                    setTranslation(e.data.output)
                     translatedText.current = e.data.output
                     break;
                 case 'complete':
                     setLoading(false)
+                    setTranslation(e.data.output.map(x => x.translation_text).join(' '))
                     translatedText.current = e.data.output.map(x => x.translation_text).join(' ')
                     break;
             }
@@ -55,6 +58,7 @@ function Translation(props) {
         if (isMobile) {
             const translated = await translate(text, toLanguage);
             if (translated) {
+                setTranslation(translated);
                 translatedText.current = translated;
             }
         } else {
