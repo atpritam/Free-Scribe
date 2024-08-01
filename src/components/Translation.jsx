@@ -13,8 +13,6 @@ function Translation(props) {
     const [prevLanguage, setPrevLanguage] = useState('Select language');
     const worker = useRef(null);
 
-
-    
     useEffect(() => {
         if (!worker.current && !isMobile) {
             worker.current = new Worker(new URL('../utils/translate.worker.js', import.meta.url), {
