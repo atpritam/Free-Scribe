@@ -1,11 +1,11 @@
-import React, {Suspense,useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import HomePage from './components/HomePage.jsx';
 import FileDisplay from './components/FileDisplay.jsx';
 import Transcribing from './components/Transcribing.jsx';
 import { MessageTypes } from './utils/presets.js';
 import Footer from './components/Footer.jsx';
-const Information = React.lazy(() => import('./components/Information.jsx'));
+import Information from './components/Information.jsx';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -109,9 +109,7 @@ function App() {
       <section className='min-h-screen flex flex-col'>
         <Header handleNew = {handleNew}/>
         {output ? (
-          <Suspense fallback={<div><p><i className="fa-solid fa-spinner animate-spin"></i></p></div>}>
             <Information text={text} />
-          </Suspense>
         ) : loading? (
           <Transcribing />
         ) : (isAudioAvailable && file) ? (
