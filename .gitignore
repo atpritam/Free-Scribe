@@ -15,8 +15,8 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-mobile.presets.json
-mobile.translate.js
+src/utils/mobile.presets.json
+src/utils/mobile.translate.js
 .idea
 .DS_Store
 *.suo
