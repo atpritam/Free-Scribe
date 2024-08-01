@@ -20,7 +20,7 @@ const Header = (props) => {
                     Donate
                 </a>
                 <a 
-                    onClick={handleNew} 
+                    href="/Free-Scribe/"
                     className={`specialBtn flex items-center gap-2 px-3 py-2 rounded-lg text-blue-400 cursor-pointer transition-opacity duration-300`}
                 >
                     <p>New</p>

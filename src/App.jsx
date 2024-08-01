@@ -16,16 +16,6 @@ function App() {
   const [finished, setFinished] = useState(false);
   const [text, setText] = useState(null);
 
-  const handleNew = () => {
-    setOutput(null);
-    setLoading(false);
-    setText(null);
-    setFile(null);
-    setAudioStream(null);
-    setDownloading(false);
-    setFinished(false);
-  }
-
   const handleAudioReset = () => {
     setFile(null);
     setAudioStream(null);
@@ -107,7 +97,7 @@ function App() {
   return (
     <div className='flex flex-col max-w-[1000px] mx-auto w-full'>
       <section className='min-h-screen flex flex-col'>
-        <Header handleNew = {handleNew}/>
+        <Header />
         {output ? (
             <Information text={text} />
         ) : loading? (

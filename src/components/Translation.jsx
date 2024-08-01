@@ -41,10 +41,10 @@ function Translation(props) {
             }
         }
 
-        worker.current.addEventListener('message', onMessageReceived)
+        worker.current?.addEventListener('message', onMessageReceived)
 
-        return () => worker.current.removeEventListener('message', onMessageReceived)
-    })
+        return () => worker.current?.removeEventListener('message', onMessageReceived)
+    }, [])
 
     const generateTranslation = async () => {
         if(translating || toLanguage === 'Select language') return  
@@ -75,7 +75,7 @@ function Translation(props) {
 
     return (
         <>
-            {!translating && language.current && (
+            {language.current && (
                 <div className='flex flex-col gap-1 mb-4'>
                     <p className='text-xs sm:text-sm font-medium text-slate-500 mr-auto'>To language</p>
                     <div className='flex items-stretch gap-2 sm:gap-4'>
@@ -89,7 +89,7 @@ function Translation(props) {
                         >
                             <option value={'Select language'}>Select language</option>
                             {
-                                isMobile ? (
+                                (isMobile) ? (
                                     MOBILE.languages.map(lang => (
                                         <option key={lang.language} value={lang.language}>{lang.name}</option>
                                     ))
