@@ -52,10 +52,11 @@ h1, h2, h3, h4, .bold {
 .fixed-height-container {
   height: 45vh;
   overflow-y: fixed;
-  width: 100%;
-  min-width: auto;
+  width: 40vw;
+  min-width: 400px;
   box-sizing: border-box;
   padding: 26px;
+  align-self: center;
 }
 
 .fixed-height {

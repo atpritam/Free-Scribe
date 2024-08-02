@@ -5,12 +5,12 @@ import Translation from './Translation';
 function Information(props) {
     const [tab, setTab] = useState('Transcription');
     const [downloading, setDownloading] = useState(false);
+    const [copied, setCopied] = useState(false);   
 
     const { text } = props;
 
     const translatedText = useRef('');
     const language = useRef('Select language');
-
 
     const handleTabChange = (e) => {
         setTab(e.target.innerText);
@@ -21,7 +21,11 @@ function Information(props) {
         if (!textToCopy) {
             return;
         }
+        setCopied(true);
         navigator.clipboard.writeText(textToCopy);
+        setTimeout(() => {
+            setCopied(false);
+        }, 2000);
     };
 
     const handleDownload = () => {
@@ -60,10 +64,12 @@ function Information(props) {
             </div>
             <div className='flex items-center gap-4 mx-auto mt-3'>
                 <button onClick={handleCopy} title="Copy" className='bg-white hover:text-blue-500 duration-200 text-blue-300 px-2 aspect-square grid place-items-center rounded'>
-                    <i className="fa-solid fa-copy"></i>
+                    {copied ? <i className="fa-solid fa-check" style={{ fontSize: '20px' }}></i> :
+                              <i className="fa-solid fa-copy" style={{ fontSize: '20px' }}></i>
+                    }
                 </button>
                 <button onClick={handleDownload} title="Download" className='bg-white hover:text-blue-500 duration-200 text-blue-300 px-2 aspect-square grid place-items-center rounded'>
-                    <i className="fa-solid fa-download"></i>
+                    <i className="fa-solid fa-download" style={{ fontSize: '20px' }}></i>
                 </button>
             </div>
         </main>
