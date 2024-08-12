@@ -1,5 +1,11 @@
 # Free-Scribe
 
+[![React](https://img.shields.io/badge/React-18.2.0-whitesmoke?style=flat&logo=react&logoColor=white&logoSize=auto&labelColor=blue)](https://react.dev/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.x-blue?style=flat&logo=tailwindcss&logoColor=blue&logoSize=auto&labelColor=black)](https://tailwindcss.com/)
+[![Xenova](https://img.shields.io/badge/Xenova-whisper--tiny.en-purple?style=flat&logoSize=auto&labelColor=white)](https://www.npmjs.com/package/@xenova/transformers)
+[![Xenova](https://img.shields.io/badge/Xenova-nllb--200--distilled--600M-yellow?style=flat&logoSize=auto&labelColor=white)](https://www.npmjs.com/package/@xenova/transformers)
+
+
 Deployed: [Free-Scribe](https://itssodope01.github.io/Free-Scribe/)
 
 ## Audio Transcription and Translation App
@@ -57,8 +63,8 @@ Free-Scribe is a powerful React-based web application that leverages machine lea
 - **Web Workers**: For running transcription and translation tasks in the background.
 - **TailwindCSS**: For styling the application.
 - **Machine Learning Models**:
-  - **Transcription**: Uses the `Xenova/whisper-tiny.en` model from the `@xenova/transformers` library for automatic speech recognition.
-  - **Translation**: Utilizes the `Xenova/nllb-200-distilled-600M` model from the `@xenova/transformers` library for multilingual translation.
+  - **Transcription**: Uses the [`Xenova/whisper-tiny.en`](https://www.npmjs.com/package/@xenova/transformers) model from the `@xenova/transformers` library for automatic speech recognition.
+  - **Translation**: Utilizes the [`Xenova/nllb-200-distilled-600M`](https://www.npmjs.com/package/@xenova/transformers) model from the `@xenova/transformers` library for multilingual translation.
 - **@xenova/transformers**: A library that provides easy-to-use implementations of state-of-the-art transformer models.
 
 ## Machine Learning Model Details
