@@ -1,6 +1,9 @@
 <p align="center">
-  <img src="Free-scribe.gif" alt="Event Flow GIF" style="width: 100%; height: auto;">
+  <a href="https://itssodope01.github.io/Free-Scribe/" target="_blank">
+    <img src="Free-scribe.gif" alt="Event Flow GIF" style="width: 100%; height: auto;">
+  </a>
 </p>
+
 
 # Free-Scribe
 
