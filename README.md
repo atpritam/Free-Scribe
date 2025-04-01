@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://itssodope01.github.io/Free-Scribe/" target="_blank">
+  <a href="https://atpritam.github.io/Free-Scribe/" target="_blank">
     <img src="Free-scribe.gif" alt="Event Flow GIF" style="width: 100%; height: auto;">
   </a>
 </p>
@@ -12,7 +12,7 @@
 [![Xenova](https://img.shields.io/badge/Xenova-whisper--tiny.en-purple?style=flat&logoSize=auto&labelColor=white)](https://www.npmjs.com/package/@xenova/transformers)
 [![Xenova](https://img.shields.io/badge/Xenova-nllb--200--distilled--600M-wheat?style=flat&logoSize=auto&labelColor=white)](https://www.npmjs.com/package/@xenova/transformers)
 
-Deployed: [Free-Scribe](https://itssodope01.github.io/Free-Scribe/)
+Deployed: [Free-Scribe](https://atpritam.github.io/Free-Scribe/)
 
 ## Audio Transcription and Translation App
 
