@@ -27,6 +27,14 @@ export default function App() {
     setAudioStream(null);
   };
 
+  const resetToHomePage = () => {
+    setFile(null);
+    setAudioStream(null);
+    setOutput(false);
+    setLoading(false);
+    setText(null);
+  };
+
   const isAudioAvailable = file || audioStream;
 
   const worker = useRef<Worker | null>(null);
@@ -103,7 +111,7 @@ export default function App() {
   return (
     <div className='flex flex-col max-w-[1000px] mx-auto w-full'>
       <section className='min-h-screen flex flex-col'>
-        <Header />
+        <Header resetToHomePage={resetToHomePage} />
         {output ? (
             <Information text={text} />
         ) : loading? (

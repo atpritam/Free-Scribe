@@ -83,7 +83,7 @@ function Translation(props) {
                     <div className='flex items-stretch gap-2 sm:gap-4'>
                         <select
                             value={language.current}
-                            className='flex-1 outline-none w-full focus:outline-none bg-white duration-200 p-2 rounded'
+                            className='flex-1 outline-none w-full focus:outline-none bg-white duration-200 p-2 rounded cursor-pointer'
                             onChange={(e) => {
                                 setToLanguage(e.target.value);
                                 language.current = e.target.value;
@@ -102,7 +102,7 @@ function Translation(props) {
                                 )
                             }
                         </select>
-                        <button onClick={generateTranslation} className='specialBtn px-3 py-2 rounded-lg text-blue-400 hover:text-blue-600 duration-200'>Translate</button>
+                        <button onClick={generateTranslation} className='specialBtn px-3 py-2 rounded-lg text-blue-400 hover:text-blue-600 duration-200 cursor-pointer'>Translate</button>
                     </div>
                 </div>
             )}

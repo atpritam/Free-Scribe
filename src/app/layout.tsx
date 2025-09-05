@@ -18,7 +18,15 @@ export const metadata: Metadata = {
   title: "FreeScribe - Record, Transcribe, Translate",
   description: "Free now, free forever. Record audio and get instant transcription and translation powered by AI.",
   icons: {
-    icon: "/transcription.png",
+    icon: [
+      {
+        url: "/transcription.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+    ],
+    shortcut: "/transcription.png",
+    apple: "/transcription.png",
   },
 };
 
@@ -30,6 +38,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/transcription.png" type="image/png" />
+        <link rel="shortcut icon" href="/transcription.png" type="image/png" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"

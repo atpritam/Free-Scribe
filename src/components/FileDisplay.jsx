@@ -12,9 +12,9 @@ function FileDisplay(props) {
                 <p className='truncate'>{file ? file?.name : 'Custom audio'}</p>
             </div>
             <div className='flex items-center justify-between gap-4'>
-                <button onClick={handleAudioReset} className='text-slate-400 hover:text-blue-600 duration-200'>Reset</button>
+                <button onClick={handleAudioReset} className='text-slate-400 hover:text-blue-600 duration-200 cursor-pointer'>Reset</button>
                 <button 
-                    className='specialBtn  px-3 p-2 rounded-lg text-blue-400 flex items-center gap-2 font-medium '
+                    className='specialBtn  px-3 p-2 rounded-lg text-blue-400 flex items-center gap-2 font-medium cursor-pointer'
                     onClick={handleFormSubmission}
                 >
                     <p>Transcribe</p>
