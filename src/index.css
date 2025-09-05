@@ -1,8 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 * {
   font-family: 'Open-Sans', sans-serif;
 }
+
+
 
 h1, h2, h3, h4, .bold {
   font-family: 'Poppins', sans-serif;
@@ -67,3 +71,6 @@ h1, h2, h3, h4, .bold {
 .nowrap {
   white-space: nowrap;
 }
+
+
+
