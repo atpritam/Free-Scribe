@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect, useCallback } from 'react';
 import Header from '../components/Header';
 import HomePage from '../components/HomePage';
 import FileDisplay from '../components/FileDisplay';
@@ -9,14 +9,18 @@ import { MessageTypes } from '../utils/presets';
 import Footer from '../components/Footer';
 import Information from '../components/Information';
 
+interface TranscriptionResult {
+  text: string;
+  start: number;
+  end: number;
+}
+
 export default function App() {
   const [file, setFile] = useState(null);
   const [audioStream, setAudioStream] = useState(null);
-  const [output, setOutput] = useState(false);
+  const [output, setOutput] = useState<TranscriptionResult[] | false>(false);
   const [loading, setLoading] = useState(false); 
-  const [downloading, setDownloading] = useState(false);
-  const [finished, setFinished] = useState(false);
-  const [text, setText] = useState(null);
+  const [text, setText] = useState<string | null>(null);
 
   const handleAudioReset = () => {
     setFile(null);
@@ -25,9 +29,9 @@ export default function App() {
 
   const isAudioAvailable = file || audioStream;
 
-  const worker = useRef(null);
+  const worker = useRef<Worker | null>(null);
 
-  const readAudioFrom = async (file) => {
+  const readAudioFrom = async (file: File) => {
     const sampling_rate = 16000;
     const audioCTX = new AudioContext({ sampleRate: sampling_rate });
     const response = await file.arrayBuffer();
@@ -36,19 +40,15 @@ export default function App() {
     return audio;
   };
 
-  useEffect(() => {
-    if (audioStream) {
-      handleFormSubmission();
-    }
-  }, [audioStream]);
-
-
-  const handleFormSubmission = async () => {
+  const handleFormSubmission = useCallback(async () => {
     if (!file && !audioStream) {
       return;
     }
 
-    let audio = await readAudioFrom(file ? file : audioStream);
+    const audioFile = file || audioStream;
+    if (!audioFile || !worker.current) return;
+    
+    const audio = await readAudioFrom(audioFile);
     const model_name = `openai/whisper-tiny.en`;
 
     worker.current.postMessage({
@@ -56,7 +56,13 @@ export default function App() {
       audio,
       model_name
     });
-  };
+  }, [file, audioStream]);
+
+  useEffect(() => {
+    if (audioStream) {
+      handleFormSubmission();
+    }
+  }, [audioStream, handleFormSubmission]);
 
   useEffect(() => {
     if (!worker.current) {
@@ -65,19 +71,13 @@ export default function App() {
       });
     }
 
-    const onMessageReceived = async (e) => {
+    const onMessageReceived = async (e: MessageEvent) => {
       switch (e.data.type) {
-        case 'DOWNLOADING':
-          setDownloading(true);
-          break;
         case 'LOADING':
           setLoading(true);
           break;
         case 'RESULT':
           setOutput(e.data.results);
-          break;
-        case 'INFERENCE_DONE':
-          setFinished(true);
           break;
         default: 
           break;
@@ -86,7 +86,11 @@ export default function App() {
 
     worker.current.addEventListener('message', onMessageReceived);
 
-    return () => worker.current.removeEventListener('message', onMessageReceived);
+    return () => {
+      if (worker.current) {
+        worker.current.removeEventListener('message', onMessageReceived);
+      }
+    };
   }, []);
 
   useEffect(() => {
