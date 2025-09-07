@@ -3,22 +3,21 @@
 import React, { useState, useRef } from 'react';
 import Transcription from './Transcription';
 import Translation from './Translation';
+import { InformationProps } from '../types';
 
-function Information(props) {
-    const [tab, setTab] = useState('Transcription');
-    const [downloading, setDownloading] = useState(false);
-    const [copied, setCopied] = useState(false);   
+const Information: React.FC<InformationProps> = ({ text }) => {
+    const [tab, setTab] = useState<'Transcription' | 'Translation'>('Transcription');
+    const [downloading, setDownloading] = useState<boolean>(false);
+    const [copied, setCopied] = useState<boolean>(false);
 
-    const { text } = props;
+    const translatedText = useRef<string>('');
+    const language = useRef<string>('Select language');
 
-    const translatedText = useRef('');
-    const language = useRef('Select language');
-
-    const handleTabChange = (e) => {
-        setTab(e.target.innerText);
+    const handleTabChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setTab(e.currentTarget.innerText as 'Transcription' | 'Translation');
     };
 
-    const handleCopy = () => {
+    const handleCopy = (): void => {
         const textToCopy = tab === 'Translation' ? translatedText.current : text;
         if (!textToCopy) {
             return;
@@ -30,7 +29,7 @@ function Information(props) {
         }, 2000);
     };
 
-    const handleDownload = () => {
+    const handleDownload = (): void => {
         const textToDownload = tab === 'Translation' ? translatedText.current : text;
         if (downloading || !textToDownload) {
             return;
@@ -76,6 +75,6 @@ function Information(props) {
             </div>
         </main>
     );
-}
+};
 
 export default Information;

@@ -4,16 +4,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { LANGUAGES } from '../utils/presets';
 import { translate } from '../utils/mobile.translate';
 import { isMobile } from 'react-device-detect';
-import  MOBILE  from '../utils/mobile.presets';
+import MOBILE from '../utils/mobile.presets.json';
+import { TranslationProps } from '../types';
 
-function Translation(props) {
-    const { text, translatedText, language } = props;
-    const [translation, setTranslation] = useState('');
-    const [toLanguage, setToLanguage] = useState('Select language');
-    const [translating, setTranslating] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [prevLanguage, setPrevLanguage] = useState('Select language');
-    const worker = useRef(null);
+const Translation: React.FC<TranslationProps> = ({ text, translatedText, language }) => {
+    const [, setTranslation] = useState<string>('');
+    const [toLanguage, setToLanguage] = useState<string>('Select language');
+    const [translating, setTranslating] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [prevLanguage, setPrevLanguage] = useState<string>('Select language');
+    const worker = useRef<Worker | null>(null);
 
     useEffect(() => {
         if (!worker.current && !isMobile) {
@@ -22,7 +22,7 @@ function Translation(props) {
             })
         }
 
-        const onMessageReceived = async (e) => {
+        const onMessageReceived = async (e: MessageEvent) => {
             switch (e.data.status) {
                 case 'initiate':
                     setLoading(true)
@@ -37,8 +37,8 @@ function Translation(props) {
                     break;
                 case 'complete':
                     setLoading(false)
-                    setTranslation(e.data.output.map(x => x.translation_text).join(' '))
-                    translatedText.current = e.data.output.map(x => x.translation_text).join(' ')
+                    setTranslation((e.data.output as Array<{translation_text: string}>).map(x => x.translation_text).join(' '))
+                    translatedText.current = (e.data.output as Array<{translation_text: string}>).map(x => x.translation_text).join(' ')
                     break;
             }
         }
@@ -46,12 +46,12 @@ function Translation(props) {
         worker.current?.addEventListener('message', onMessageReceived)
 
         return () => worker.current?.removeEventListener('message', onMessageReceived)
-    }, [])
+    }, [translatedText])
 
-    const generateTranslation = async () => {
+    const generateTranslation = async (): Promise<void> => {
         if(translating || toLanguage === 'Select language') return  
         if(prevLanguage === toLanguage) return
-        translatedText.current = null
+        translatedText.current = ''
         setTranslating(true)
         setLoading(true)
 
@@ -62,7 +62,7 @@ function Translation(props) {
                 translatedText.current = translated;
             }
         } else {
-            worker.current.postMessage({
+            worker.current?.postMessage({
                 text: text,
                 src_lang: 'eng_Latn',
                 tgt_lang: toLanguage
@@ -73,7 +73,7 @@ function Translation(props) {
         setTranslating(false)
         setLoading(false)
         setPrevLanguage(toLanguage)
-    }
+    };
 
     return (
         <>
@@ -116,6 +116,6 @@ function Translation(props) {
             )}
         </>
     );
-}
+};
 
 export default Translation;

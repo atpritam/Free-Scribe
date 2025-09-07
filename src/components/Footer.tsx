@@ -1,17 +1,18 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
+import { FooterProps } from '../types';
 
-const Footer = () => {
-  const [showAllIcons, setShowAllIcons] = useState(true);
+const Footer: React.FC<FooterProps> = () => {
+  const [showAllIcons, setShowAllIcons] = useState<boolean>(true);
 
   useEffect(() => {
-    const loadUserPreferences = async () => {
+    const loadUserPreferences = async (): Promise<void> => {
       try {
         const res = await fetch("https://ipapi.co/json/");
-        const userData = await res.json();
+        const userData: { country_name: string } = await res.json();
         
-        const socialMediaPolicies = {
+        const socialMediaPolicies: Record<string, { showAllSocialIcons: boolean }> = {
           "India": { showAllSocialIcons: false },
           "default": { showAllSocialIcons: true }
         };
@@ -20,7 +21,7 @@ const Footer = () => {
         setShowAllIcons(policy.showAllSocialIcons);
         
       } catch (err) {
-        console.error("Preferences load failed", err);
+        console.error("Preferences load failed", err instanceof Error ? err.message : 'Unknown error');
       }
     };
 

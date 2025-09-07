@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react'
+import React from 'react';
+import { TranscribingProps } from '../types';
 
-export default function Transcribing(props) {
-    const { downloading } = props
+const Transcribing: React.FC<TranscribingProps> = ({ downloading }) => {
 
 
     return (
@@ -21,5 +21,7 @@ export default function Transcribing(props) {
                 })}
             </div>
         </div>
-    )
-}
+    );
+};
+
+export default Transcribing;

@@ -1,19 +1,19 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
+import { HomePageProps, AudioFile } from '../types';
 
-function HomePage(props) {
-    const {setAudioStream, setFile} = props;
+const HomePage: React.FC<HomePageProps> = ({ setAudioStream, setFile }) => {
 
-    const [recordingStatus, setRecordingStatus] = useState('inactive');
-    const [audioChunks, setAudioChunks] = useState([]);
-    const [duration, setDuration] = useState(0);
+    const [recordingStatus, setRecordingStatus] = useState<'inactive' | 'recording'>('inactive');
+    const [audioChunks, setAudioChunks] = useState<Blob[]>([]);
+    const [duration, setDuration] = useState<number>(0);
 
-    const mediaRecorder = useRef(null);
+    const mediaRecorder = useRef<MediaRecorder | null>(null);
 
     const mimeType = 'audio/webm';
 
-    const [stream, setStream] = useState(null);
+    const [stream, setStream] = useState<MediaStream | null>(null);
 
     const startRecording = async () => {
         let tempStream
@@ -26,17 +26,17 @@ function HomePage(props) {
             tempStream = streamData
             setStream(tempStream) 
         } catch (err) {
-            console.log(err.message)
+            console.log(err instanceof Error ? err.message : 'An error occurred');
             return
         }
     
         setRecordingStatus('recording')
     
-        const media = new MediaRecorder(tempStream, { type: mimeType })
+        const media = new MediaRecorder(tempStream, { mimeType: mimeType })
         mediaRecorder.current = media
     
         mediaRecorder.current.start()
-        let localAudioChunks = []
+        const localAudioChunks: Blob[] = []
         mediaRecorder.current.ondataavailable = (event) => {
             if (typeof event.data === 'undefined') { return }
             if (event.data.size === 0) { return }
@@ -48,12 +48,14 @@ function HomePage(props) {
     const stopRecording = async () => {
         setRecordingStatus('inactive')
     
-        mediaRecorder.current.stop()
-        mediaRecorder.current.onstop = () => {
-            const audioBlob = new Blob(audioChunks, { type: mimeType })
-            setAudioStream(audioBlob)
-            setAudioChunks([])
-            setDuration(0)
+        if (mediaRecorder.current) {
+            mediaRecorder.current.stop()
+            mediaRecorder.current.onstop = () => {
+                const audioBlob = new Blob(audioChunks, { type: mimeType })
+                setAudioStream(audioBlob)
+                setAudioChunks([])
+                setDuration(0)
+            }
         }
     
         if (stream) {
@@ -103,8 +105,10 @@ function HomePage(props) {
                     upload 
                     <input 
                         onChange={(e) => {
-                            const tempFile = e.target.files[0]
-                            setFile(tempFile)
+                            const tempFile = e.target.files?.[0] as File | undefined;
+                            if (tempFile) {
+                                setFile(tempFile as AudioFile);
+                            }
                         }} 
                     className='hidden' type='file' accept='.mp3,.wave' />
                     </label> a mp3 file</p>

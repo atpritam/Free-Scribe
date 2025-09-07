@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans, Poppins } from "next/font/google";
 import "./globals.css";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -51,7 +52,9 @@ export default function RootLayout({
       <body
         className={`${openSans.variable} ${poppins.variable} bg-gradient-to-r from-blue-50 to-transparent text-slate-700 text-sm sm:text-base`}
       >
-        {children}
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
       </body>
     </html>
   );

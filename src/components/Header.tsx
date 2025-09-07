@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
+import { HeaderProps } from '../types';
 
-const Header = (props) => {
-    const { handleNew, resetToHomePage } = props;
+const Header: React.FC<HeaderProps> = ({ resetToHomePage }) => {
 
     return (
         <header className='flex items-center justify-between gap-4 p-4'>

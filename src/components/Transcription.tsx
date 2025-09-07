@@ -1,10 +1,9 @@
 'use client';
 
-import React from 'react'
+import React from 'react';
+import { TranscriptionProps } from '../types';
 
-function Transcription(props) {
-
-    const { text } = props;
+const Transcription: React.FC<TranscriptionProps> = ({ text }) => {
 
   return (
     <div>
@@ -16,7 +15,7 @@ function Transcription(props) {
             )
         }
     </div>
-  )
-}
+  );
+};
 
-export default Transcription
+export default Transcription;
